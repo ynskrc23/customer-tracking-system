@@ -33,7 +33,7 @@ public class Customer {
 
     private String mobilePhone;
 
-    private boolean gender;
+    private String gender;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date dateBirthday;

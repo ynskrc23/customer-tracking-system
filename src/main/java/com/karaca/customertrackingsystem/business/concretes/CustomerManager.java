@@ -7,7 +7,10 @@ import com.karaca.customertrackingsystem.business.dto.responses.create.CreateCus
 import com.karaca.customertrackingsystem.business.dto.responses.get.Customer.GetAllCustomersResponse;
 import com.karaca.customertrackingsystem.business.dto.responses.get.Customer.GetCustomerResponse;
 import com.karaca.customertrackingsystem.business.dto.responses.update.UpdateCustomerResponse;
+import com.karaca.customertrackingsystem.entity.Customer;
 import com.karaca.customertrackingsystem.repository.CustomerRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,21 +21,27 @@ import java.util.List;
 @AllArgsConstructor
 public class CustomerManager implements CustomerService {
     private final CustomerRepository customerRepository;
-
+    private final ModelMapper mapper;
     @Override
     @Cacheable(value = "customer_list")
     public List<GetAllCustomersResponse> getAll() {
-        return null;
+        List<Customer> customers = customerRepository.findAll();
+        return customers.stream().map(customer -> mapper.map(customer, GetAllCustomersResponse.class)).toList();
     }
 
     @Override
     public GetCustomerResponse getById(int id) {
-        return null;
+        Customer customer = customerRepository.findById((long) id).orElseThrow();
+        return mapper.map(customer, GetCustomerResponse.class);
     }
 
     @Override
+    @CacheEvict(value = "customer_list", allEntries = true)
     public CreateCustomerResponse add(CreateCustomerRequest request) {
-        return null;
+        Customer customer = mapper.map(request,Customer.class);
+        customer.setId(0L);
+        customerRepository.save(customer);
+        return mapper.map(customer,CreateCustomerResponse.class);
     }
 
     @Override

@@ -16,7 +16,7 @@ public class UpdateCustomerResponse {
     private String lastname;
     private String email;
     private String mobilePhone;
-    private boolean gender;
+    private String gender;
     private Date dateBirthday;
     private String address;
     private LocalDateTime dateCreated;
