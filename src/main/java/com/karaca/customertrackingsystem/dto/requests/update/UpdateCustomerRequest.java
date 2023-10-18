@@ -1,4 +1,4 @@
-package com.karaca.customertrackingsystem.business.dto.requests.update;
+package com.karaca.customertrackingsystem.dto.requests.update;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

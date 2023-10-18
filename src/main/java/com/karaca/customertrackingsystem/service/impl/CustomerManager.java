@@ -1,12 +1,12 @@
-package com.karaca.customertrackingsystem.business.concretes;
+package com.karaca.customertrackingsystem.service.impl;
 
-import com.karaca.customertrackingsystem.business.abstracts.CustomerService;
-import com.karaca.customertrackingsystem.business.dto.requests.create.CreateCustomerRequest;
-import com.karaca.customertrackingsystem.business.dto.requests.update.UpdateCustomerRequest;
-import com.karaca.customertrackingsystem.business.dto.responses.create.CreateCustomerResponse;
-import com.karaca.customertrackingsystem.business.dto.responses.get.Customer.GetAllCustomersResponse;
-import com.karaca.customertrackingsystem.business.dto.responses.get.Customer.GetCustomerResponse;
-import com.karaca.customertrackingsystem.business.dto.responses.update.UpdateCustomerResponse;
+import com.karaca.customertrackingsystem.service.CustomerService;
+import com.karaca.customertrackingsystem.dto.requests.create.CreateCustomerRequest;
+import com.karaca.customertrackingsystem.dto.requests.update.UpdateCustomerRequest;
+import com.karaca.customertrackingsystem.dto.responses.create.CreateCustomerResponse;
+import com.karaca.customertrackingsystem.dto.responses.get.Customer.GetAllCustomersResponse;
+import com.karaca.customertrackingsystem.dto.responses.get.Customer.GetCustomerResponse;
+import com.karaca.customertrackingsystem.dto.responses.update.UpdateCustomerResponse;
 import com.karaca.customertrackingsystem.entity.Customer;
 import com.karaca.customertrackingsystem.repository.CustomerRepository;
 import org.modelmapper.ModelMapper;
@@ -46,11 +46,14 @@ public class CustomerManager implements CustomerService {
 
     @Override
     public UpdateCustomerResponse update(int id, UpdateCustomerRequest request) {
-        return null;
+        Customer customer = mapper.map(request,Customer.class);
+        customer.setId((long) id);
+        customerRepository.save(customer);
+        return mapper.map(customer,UpdateCustomerResponse.class);
     }
 
     @Override
     public void delete(int id) {
-
+        customerRepository.deleteById((long) id);
     }
 }

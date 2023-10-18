@@ -1,4 +1,4 @@
-package com.karaca.customertrackingsystem.business.dto.responses.create;
+package com.karaca.customertrackingsystem.dto.responses.get.Customer;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CreateCustomerResponse {
+public class GetCustomerResponse {
     private int id;
     private String username;
     private String lastname;

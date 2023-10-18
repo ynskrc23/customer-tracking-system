@@ -1,10 +1,12 @@
 package com.karaca.customertrackingsystem.controller;
 
-import com.karaca.customertrackingsystem.business.abstracts.CustomerService;
-import com.karaca.customertrackingsystem.business.dto.requests.create.CreateCustomerRequest;
-import com.karaca.customertrackingsystem.business.dto.responses.create.CreateCustomerResponse;
-import com.karaca.customertrackingsystem.business.dto.responses.get.Customer.GetAllCustomersResponse;
-import com.karaca.customertrackingsystem.business.dto.responses.get.Customer.GetCustomerResponse;
+import com.karaca.customertrackingsystem.dto.requests.update.UpdateCustomerRequest;
+import com.karaca.customertrackingsystem.dto.responses.update.UpdateCustomerResponse;
+import com.karaca.customertrackingsystem.service.CustomerService;
+import com.karaca.customertrackingsystem.dto.requests.create.CreateCustomerRequest;
+import com.karaca.customertrackingsystem.dto.responses.create.CreateCustomerResponse;
+import com.karaca.customertrackingsystem.dto.responses.get.Customer.GetAllCustomersResponse;
+import com.karaca.customertrackingsystem.dto.responses.get.Customer.GetCustomerResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -31,5 +33,16 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.CREATED)
     public CreateCustomerResponse add(@RequestBody CreateCustomerRequest request) {
         return customerService.add(request);
+    }
+
+    @PutMapping("/{id}")
+    public UpdateCustomerResponse update(@PathVariable int id, @RequestBody UpdateCustomerRequest request) {
+        return customerService.update(id,request);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable int id){
+        customerService.delete(id);
     }
 }
