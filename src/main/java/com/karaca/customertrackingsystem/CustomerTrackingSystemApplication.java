@@ -10,7 +10,6 @@ public class CustomerTrackingSystemApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CustomerTrackingSystemApplication.class, args);
-        System.out.println("ok");
     }
 
 }
