@@ -7,6 +7,7 @@ import com.karaca.customertrackingsystem.dto.responses.get.Product.GetAllProduct
 import com.karaca.customertrackingsystem.dto.responses.get.Product.GetProductResponse;
 import com.karaca.customertrackingsystem.dto.responses.update.UpdateProductResponse;
 import com.karaca.customertrackingsystem.entity.Product;
+import com.karaca.customertrackingsystem.exception.ResourceNotFoundException;
 import com.karaca.customertrackingsystem.repository.ProductRepository;
 import com.karaca.customertrackingsystem.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -27,12 +28,15 @@ public class ProductManager implements ProductService {
     @Cacheable(value = "product_list")
     public List<GetAllProductsResponse> getAll() {
         List<Product> products = productRepository.findAll();
+
         return products.stream().map(product -> mapper.map(product, GetAllProductsResponse.class)).toList();
     }
 
     @Override
     public GetProductResponse getById(int id) {
-        Product product = productRepository.findById((long) id).orElseThrow();
+        Product product = productRepository.findById((long) id)
+                .orElseThrow(()-> new ResourceNotFoundException("Product not found id:"+id));
+
         return mapper.map(product, GetProductResponse.class);
     }
 
@@ -42,20 +46,25 @@ public class ProductManager implements ProductService {
         Product product = mapper.map(request,Product.class);
         product.setId(0L);
         productRepository.save(product);
+
         return mapper.map(product, CreateProductResponse.class);
     }
 
     @Override
     public UpdateProductResponse update(int id, UpdateProductRequest request) {
+        productRepository.findById((long) id)
+                .orElseThrow(()-> new ResourceNotFoundException("Product not found id:"+id));
         Product product = mapper.map(request,Product.class);
         product.setId((long) id);
         productRepository.save(product);
+
         return mapper.map(product,UpdateProductResponse.class);
     }
 
     @Override
     public void delete(int id) {
+        productRepository.findById((long) id)
+                .orElseThrow(()-> new ResourceNotFoundException("Product not found id:"+id));
         productRepository.deleteById((long) id);
-        System.out.println("id "+ id +" silindi.");
     }
 }

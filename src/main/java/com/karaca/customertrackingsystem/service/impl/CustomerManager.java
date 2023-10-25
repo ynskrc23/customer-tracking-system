@@ -1,5 +1,6 @@
 package com.karaca.customertrackingsystem.service.impl;
 
+import com.karaca.customertrackingsystem.exception.ResourceNotFoundException;
 import com.karaca.customertrackingsystem.service.CustomerService;
 import com.karaca.customertrackingsystem.dto.requests.create.CreateCustomerRequest;
 import com.karaca.customertrackingsystem.dto.requests.update.UpdateCustomerRequest;
@@ -26,12 +27,15 @@ public class CustomerManager implements CustomerService {
     @Cacheable(value = "customer_list")
     public List<GetAllCustomersResponse> getAll() {
         List<Customer> customers = customerRepository.findAll();
+
         return customers.stream().map(customer -> mapper.map(customer, GetAllCustomersResponse.class)).toList();
     }
 
     @Override
     public GetCustomerResponse getById(int id) {
-        Customer customer = customerRepository.findById((long) id).orElseThrow();
+        Customer customer = customerRepository.findById((long) id)
+                .orElseThrow(()-> new ResourceNotFoundException("Customer not found id:"+id));
+
         return mapper.map(customer, GetCustomerResponse.class);
     }
 
@@ -41,19 +45,25 @@ public class CustomerManager implements CustomerService {
         Customer customer = mapper.map(request,Customer.class);
         customer.setId(0L);
         customerRepository.save(customer);
+
         return mapper.map(customer,CreateCustomerResponse.class);
     }
 
     @Override
     public UpdateCustomerResponse update(int id, UpdateCustomerRequest request) {
+        customerRepository.findById((long) id)
+                .orElseThrow(()-> new ResourceNotFoundException("Customer not found id:"+id));
         Customer customer = mapper.map(request,Customer.class);
         customer.setId((long) id);
         customerRepository.save(customer);
+
         return mapper.map(customer,UpdateCustomerResponse.class);
     }
 
     @Override
     public void delete(int id) {
+        customerRepository.findById((long) id)
+                .orElseThrow(()-> new ResourceNotFoundException("Customer not found id:"+id));
         customerRepository.deleteById((long) id);
     }
 }
