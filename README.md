@@ -1,6 +1,6 @@
 # Müşteri Takip Yönetim Sistemi
 
-müşteri kaynaklarının, iş süreçlerinin ve verilerin kolay yönetimini sağlamak için bir dizi sistemi ve işlemi birleştiren bir müşteri takip yazılımı şeklidir.
+müşteri kaynaklarının, iş süreçlerinin ve verilerin kolay yönetimini sağlamak için bir dizi sistemi ve işlemi birleştiren bir müşteri takip yazılımıdır.
 
 ---
 # Kullanılan Teknolojiler
