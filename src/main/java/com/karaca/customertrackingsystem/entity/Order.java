@@ -1,6 +1,7 @@
 package com.karaca.customertrackingsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Setter
@@ -38,7 +40,8 @@ public class Order {
     private Customer customer;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order")
-    private Set<Product> products = new HashSet<>();
+    @JsonManagedReference
+    private List<Product> products;
 
     public BigDecimal getTotalAmount(){
         BigDecimal amount = new BigDecimal(0.0);

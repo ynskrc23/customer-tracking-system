@@ -1,12 +1,12 @@
 package com.karaca.customertrackingsystem.controller;
 
-import com.karaca.customertrackingsystem.dto.requests.update.UpdateCustomerRequest;
-import com.karaca.customertrackingsystem.dto.responses.update.UpdateCustomerResponse;
-import com.karaca.customertrackingsystem.service.CustomerService;
 import com.karaca.customertrackingsystem.dto.requests.create.CreateCustomerRequest;
+import com.karaca.customertrackingsystem.dto.requests.update.UpdateCustomerRequest;
 import com.karaca.customertrackingsystem.dto.responses.create.CreateCustomerResponse;
 import com.karaca.customertrackingsystem.dto.responses.get.Customer.GetAllCustomersResponse;
 import com.karaca.customertrackingsystem.dto.responses.get.Customer.GetCustomerResponse;
+import com.karaca.customertrackingsystem.dto.responses.update.UpdateCustomerResponse;
+import com.karaca.customertrackingsystem.service.CustomerService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

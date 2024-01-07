@@ -1,5 +1,6 @@
 package com.karaca.customertrackingsystem.service.impl;
 
+import com.karaca.customertrackingsystem.entity.enums.Gender;
 import com.karaca.customertrackingsystem.exception.ResourceNotFoundException;
 import com.karaca.customertrackingsystem.service.CustomerService;
 import com.karaca.customertrackingsystem.dto.requests.create.CreateCustomerRequest;

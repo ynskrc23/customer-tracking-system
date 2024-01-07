@@ -19,4 +19,5 @@ public class CreateCustomerRequest {
     private String gender;
     private Date dateBirthday;
     private String address;
+    private Date dateCreated;
 }

@@ -1,6 +1,7 @@
 package com.karaca.customertrackingsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.karaca.customertrackingsystem.entity.enums.Gender;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,7 +34,8 @@ public class Customer {
 
     private String mobilePhone;
 
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender; //  Female, Male
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date dateBirthday;
@@ -43,4 +45,7 @@ public class Customer {
 
     @CreationTimestamp
     private LocalDateTime dateCreated;
+
+    @OneToOne(mappedBy = "customer")
+    private Order order;
 }
